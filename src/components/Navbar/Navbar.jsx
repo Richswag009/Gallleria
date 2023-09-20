@@ -18,7 +18,6 @@ const Navbar = () => {
       setError(error.message);
     }
   };
-
   return (
     <nav className=" flex flex-row justify-between align-middle border-b-4 bg-white px-10 py-3 shadow-lg  mb-0">
       <h1 className="text-2xl font-normal">
