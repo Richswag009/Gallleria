@@ -1,9 +1,44 @@
-# React + Vite
+# Table Of Content
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- Gallleria
+- Built with
+- Screenshots
+- Link to Project
 
-Currently, two official plugins are available:
+# Movie App
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-# Gallleria
+This a simple React application that fetches movies from the tmbd movie api and render it to the DOM.
+some of the functionlitie of the app includes: a user can search for its favorite movies , and see the details of the movies
+
+# Built With
+
+- React
+- TailwindCss
+- FireBase Authentication
+
+# ScreenShots
+
+![alt text](images.jpg)
+
+# Link to project
+
+[https://galleryapp-1b8c5.web.app/]
+
+# Usage
+
+git clone
+cd folder
+npm install
+
+# Run front
+
+npm run dev
+
+# Build client
+
+cd movie-app2
+npm run build
+
+# Prod
+
+npm start
