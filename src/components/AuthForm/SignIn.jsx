@@ -59,7 +59,9 @@ const SignIn = () => {
         <h1 className="text--[#008751] text-center text-3xl my-3">Sign In</h1>
 
         <div className="my-2">
-          <label htmlFor="fullname">Email</label>
+          <label htmlFor="fullname">
+            Email <sup className="text-red-500 text-lg">*</sup>
+          </label>
           <input
             {...register("email")}
             type="email"
@@ -69,13 +71,13 @@ const SignIn = () => {
             className=" rounded-2 h-[40px] w-full border p-3 my-1"
             onChange={(e) => setEmail(e.target.value)}
           />
-          <span className="text-red-800">
-            {errors["email"]?.message} <sup>*</sup>
-          </span>
+          <span className="text-red-800">{errors["email"]?.message}</span>
         </div>
 
         <div className="my-2">
-          <label htmlFor="fullname">Password</label>
+          <label htmlFor="fullname">
+            Password <sup className="text-red-500 text-lg">*</sup>
+          </label>
           <input
             {...register("password")}
             value={password}
