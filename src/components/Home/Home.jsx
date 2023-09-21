@@ -7,7 +7,10 @@ import { MouseSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core";
 import {
   SortableContext,
   arrayMove,
+  // Sortable,
+  arraySwap,
   rectSwappingStrategy,
+  // rectSortingStrategy,
 } from "@dnd-kit/sortable";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 
@@ -27,7 +30,7 @@ const Home = () => {
     setFilteredList((filteredList) => {
       const oldIndex = filteredList.findIndex((item) => item.id === active.id);
       const newIndex = filteredList.findIndex((item) => item.id === over.id);
-      return arrayMove(filteredList, oldIndex, newIndex);
+      return arraySwap(filteredList, oldIndex, newIndex);
     });
   };
 
@@ -50,26 +53,6 @@ const Home = () => {
     }, 2000);
   }, []);
 
-  const Spinner = styled.div`
-    border: 4px solid rgba(255, 255, 255, 0.3);
-    border-top: 4px solid #007bff;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
-    margin: 0 auto;
-    margin-top: 50px;
-
-    @keyframes spin {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-  `;
-
   return (
     <div className="mt-10">
       <div className="flex flex-col justify-center mx-auto items-center align-middle">
@@ -89,9 +72,14 @@ const Home = () => {
       >
         <SortableContext
           items={filteredList}
-          strategy={rectSwappingStrategy}
-          useDragOverlay={true}
+          // strategy={rectSwappingStrategy}
+          // useDragOverlay={false}
           {...filteredList}
+          strategy={rectSwappingStrategy}
+          reorderItems={arraySwap}
+          getNewIndex={({ id, filteredList, activeIndex, overIndex }) =>
+            arraySwap(filteredList, activeIndex, overIndex).indexOf(id)
+          }
         >
           {" "}
           {isLoading ? (
@@ -110,3 +98,23 @@ const Home = () => {
 };
 
 export default Home;
+
+const Spinner = styled.div`
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid #007bff;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+  margin-top: 50px;
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+`;

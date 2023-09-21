@@ -106,16 +106,4 @@ export const data = [
     imagePath: "images/anime/anime4.jpg",
     tags: "anime",
   },
-
-  {
-    id: 3,
-    imagePath: "images/sports/sports3.jpg",
-    tags: "sports",
-  },
-
-  {
-    id: 4,
-    imagePath: "images/coding/coding4.jpg",
-    tags: "coding",
-  },
 ];
