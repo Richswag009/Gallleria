@@ -40,7 +40,7 @@ const SignIn = () => {
       const data = result.user;
       if (data.accessToken) {
         setIsLoading(false);
-        navigate("/");
+        navigate("/home");
       }
     } catch (error) {
       setError(error.message);
@@ -98,7 +98,7 @@ const SignIn = () => {
         >
           Login
         </button>
-        {isLoading && <p className="text-center text-xl py-2">loading</p>}
+        {isLoading && <p className="text-center text-xl py-2">loading...</p>}
 
         {/* <p className="mb-3">
           Dont have an account??{" "}
