@@ -1,8 +1,6 @@
 /* eslint-disable react/prop-types */
-// import React, { useEffect, useState } from "react";
-import { useState } from "react";
-// import { useUserAuth } from "../store/useUserAuth";
-// import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import ImageCard from "./ImageCard";
 import { data } from "../../../data";
 import { DndContext, closestCenter } from "@dnd-kit/core";
 import { MouseSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core";
@@ -10,36 +8,13 @@ import {
   SortableContext,
   arrayMove,
   rectSwappingStrategy,
-  useSortable,
 } from "@dnd-kit/sortable";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
-import { CSS } from "@dnd-kit/utilities";
 
-const ImageCard = ({ item }) => {
-  const { attributes, listeners, setNodeRef, transition, transform } =
-    useSortable({ id: item.id });
-  const style = { transition, transform: CSS.Transform.toString(transform) };
-  return (
-    <div className="border-2 border-black  hover:bg-white hover:border-white transition-all ease-in-out delay-100 duration-150 ">
-      <img
-        src={item.imagePath}
-        alt=""
-        ref={setNodeRef}
-        {...attributes}
-        {...listeners}
-        style={style}
-        draggable="true"
-        className=" w-full max-h-[150] border-2 border-white bg-white"
-      />
-    </div>
-  );
-};
+import styled from "styled-components";
 const Home = () => {
-  // const navigate = useNavigate();
-  // const [error, setError] = useState(null);
-  // const [datas, setData] = useState(data);
-  const [filteredList, setFilteredList] = new useState(data);
-  // const { currentUser } = useUserAuth();
+  const [filteredList, setFilteredList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const mouseSensor = useSensor(MouseSensor);
   const touchSensor = useSensor(TouchSensor);
   const sensors = useSensors(mouseSensor, touchSensor);
@@ -55,8 +30,8 @@ const Home = () => {
       return arrayMove(filteredList, oldIndex, newIndex);
     });
   };
+
   const filterBySearch = (event) => {
-    // Access input value
     const query = event.target.value;
     // Create copy of item list
     var updatedList = [...data];
@@ -68,15 +43,42 @@ const Home = () => {
     setFilteredList(updatedList);
   };
 
+  useEffect(() => {
+    setFilteredList(data);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  }, []);
+
+  const Spinner = styled.div`
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid #007bff;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+    margin-top: 50px;
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  `;
+
   return (
-    <div className=" bg-[#100]">
-      <div className="search-header flex flex-col justify-center mx-auto items-center align-middle">
-        <div className="">Search:</div>
+    <div className="mt-10">
+      <div className="flex flex-col justify-center mx-auto items-center align-middle">
         <input
           id="search-box"
           type="text"
-          className="w-[50%]"
+          className="w-[82%] md:w-[50%]"
           onChange={filterBySearch}
+          placeholder="Search for tags "
         />
       </div>
       <DndContext
@@ -91,14 +93,15 @@ const Home = () => {
           useDragOverlay={true}
           {...filteredList}
         >
-          {filteredList.length > 0 ? (
-            <div className="px-10 py-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16">
+          {" "}
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            <div className="px-10 py-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16">
               {filteredList.map((item, i) => (
                 <ImageCard key={i} item={item} />
               ))}
             </div>
-          ) : (
-            <p className=" text-red-700">No Result found</p>
           )}
         </SortableContext>
       </DndContext>

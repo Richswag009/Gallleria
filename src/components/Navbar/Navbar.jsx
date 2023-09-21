@@ -13,29 +13,25 @@ const Navbar = () => {
     try {
       await logOut();
       console.log("successfully LogOut");
-      navigate("/");
+      navigate("/login");
     } catch (error) {
       setError(error.message);
     }
   };
   return (
-    <nav className=" flex flex-row justify-between align-middle border-b-4 bg-white px-10 py-3 shadow-lg  mb-0">
+    <nav className=" flex flex-row justify-between align-middle border-b-4 bg-white px-3 lg:px-10 py-3 shadow-lg  mb-0">
       <h1 className="text-2xl font-normal">
         {" "}
         <strong className="text-lime-800 ">Galleria</strong>
       </h1>
 
-      {/* <Navigation user={user} /> */}
       {currentUser && (
-        <>
-          {`signed in as ${currentUser.email}`}
-          <button
-            className="py-2 px-3 text-white bg-black"
-            onClick={onSignedOut}
-          >
-            Sign out now
-          </button>
-        </>
+        <button
+          className="px-2 py-1 lg:py-2 lg:px-3 rounded-md text-white bg-black"
+          onClick={onSignedOut}
+        >
+          Sign out now
+        </button>
       )}
     </nav>
   );

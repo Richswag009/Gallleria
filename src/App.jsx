@@ -14,10 +14,9 @@ function App() {
     <>
       <Navbar />
       <Routes>
-        <Route path="/register" element={<SignUp />} />
         {currentUser ? (
           <Route
-            path="/home"
+            path="/"
             element={
               <ProtectedRoute>
                 <Home />
@@ -25,9 +24,16 @@ function App() {
             }
           />
         ) : (
-          <Route path="/" exact element={<SignIn />} />
+          <Route path="/login" exact element={<SignIn />} />
         )}
-        <Route path="*" element={<PageNotFound />} />
+        {/* <Route
+          path="*"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        /> */}
       </Routes>
     </>
   );
