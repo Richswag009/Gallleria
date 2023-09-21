@@ -73,7 +73,7 @@ const Home = () => {
         <SortableContext
           items={filteredList}
           // strategy={rectSwappingStrategy}
-          // useDragOverlay={false}
+          useDragOverlay={true}
           {...filteredList}
           strategy={rectSwappingStrategy}
           reorderItems={arraySwap}

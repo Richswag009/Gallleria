@@ -26,7 +26,14 @@ function App() {
         ) : (
           <Route path="/" exact element={<SignIn />} />
         )}
-        <Route path="*" element={<Home />} />
+        <Route
+          path="*"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </>
   );

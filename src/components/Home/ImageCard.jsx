@@ -16,7 +16,7 @@ const ImageCard = ({ item }) => {
         {...listeners}
         style={style}
         draggable="true"
-        className=" w-full h-full  border-2 border-white bg-black"
+        className=" w-full h-full  border-2  hover:shadow-lg border-white bg-black"
       />
       <span className="absolute top-1 right-2 text-lg text-white font-extrabold ">
         {item.tags}
