@@ -5,16 +5,17 @@
 - Screenshots
 - Link to Project
 
-# Movie App
+# Gallleria
 
-This a simple React application that fetches movies from the tmbd movie api and render it to the DOM.
-some of the functionlitie of the app includes: a user can search for its favorite movies , and see the details of the movies
+This a simple Drag-and-Drop Image gallery using React application
+some of the functionlitie of the app includes: A authentication system, and a Drag and Drop Feature
 
 # Built With
 
 - React
 - TailwindCss
 - FireBase Authentication
+- DND KIT
 
 # ScreenShots
 
@@ -22,7 +23,7 @@ some of the functionlitie of the app includes: a user can search for its favorit
 
 # Link to project
 
-[https://galleryapp-1b8c5.web.app/]
+[https://gallleria.netlify.app/]
 
 # Usage
 
