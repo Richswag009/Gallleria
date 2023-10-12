@@ -1,42 +1,34 @@
 import "./App.css";
-import Navbar from "./components/Navbar/Navbar";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Home from "./components/Home/Home";
-import { Routes, Route } from "react-router-dom";
+import Gallery from "./pages/Gallery";
 import SignIn from "./components/AuthForm/SignIn";
 import SignUp from "./components/AuthForm/SignUp";
-import ProtectedRoute from "./components/ProtectedRoute";
-import PageNotFound from "./pages/PageNotFound";
-import { useUserAuth } from "./components/store/useUserAuth";
-function App() {
-  const { currentUser } = useUserAuth();
+import ErrorPage from "./pages/ErrorPage";
+import RootLayout from "./pages/RootLayout";
+import { checkAuthLoader, tokenLoader } from "./utils/UseAuth";
 
-  return (
-    <>
-      <Navbar />
-      <Routes>
-        {currentUser ? (
-          <Route
-            path="/home"
-            element={
-              <ProtectedRoute>
-                <Home />
-              </ProtectedRoute>
-            }
-          />
-        ) : (
-          <Route path="/" exact element={<SignIn />} />
-        )}
-        <Route
-          path="*"
-          element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
-    </>
-  );
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <RootLayout />,
+    loader: tokenLoader,
+    errorElement: <ErrorPage />,
+    children: [
+      { index: true, element: <Home /> },
+      {
+        path: "/gallery",
+        element: <Gallery />,
+        loader: checkAuthLoader,
+      },
+      { path: "/login", element: <SignIn /> },
+      { path: "/register", element: <SignUp /> },
+    ],
+  },
+]);
+
+function App() {
+  return <RouterProvider router={router} />;
 }
 
 export default App;

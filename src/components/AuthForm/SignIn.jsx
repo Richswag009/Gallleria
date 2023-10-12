@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useUserAuth } from "../store/useUserAuth";
+import { useUserAuth } from "../../store/useUserAuth";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -20,7 +20,7 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { signIn } = useUserAuth();
+  const { onSignIn } = useUserAuth();
 
   const {
     register,
@@ -36,11 +36,12 @@ const SignIn = () => {
     setError(null);
     setIsLoading(true);
     try {
-      const result = await signIn(email, password);
+      const result = await onSignIn(email, password);
       const data = result.user;
       if (data.accessToken) {
+        localStorage.setItem("token", data.accessToken);
         setIsLoading(false);
-        navigate("/home");
+        return navigate("/gallery");
       }
     } catch (error) {
       setError(error.message);
@@ -96,9 +97,12 @@ const SignIn = () => {
           type="submit"
           className="px-3 text-white text-xl tracking-wildest py-3 bg-[#008751] rounded-lg w-full my-4 border"
         >
-          Login
+          {isLoading ? (
+            <p className="text-center text-xl">loading...</p>
+          ) : (
+            <span>Login</span>
+          )}
         </button>
-        {isLoading && <p className="text-center text-xl py-2">loading...</p>}
 
         {/* <p className="mb-3">
           Dont have an account??{" "}

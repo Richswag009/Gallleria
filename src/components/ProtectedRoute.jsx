@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, Outlet } from "react-router-dom";
 import { useUserAuth } from "./store/useUserAuth";
 
 const ProtectedRoute = ({ children }) => {
@@ -10,9 +10,9 @@ const ProtectedRoute = ({ children }) => {
   const navigate = useNavigate();
 
   const checkUser = () => {
-    setIsLoggedIn(false);
     if (!currentUser) {
-      return navigate("/");
+      setIsLoggedIn(false);
+      return navigate("/auth/login");
     } else setIsLoggedIn(true);
   };
 
@@ -20,7 +20,7 @@ const ProtectedRoute = ({ children }) => {
     checkUser();
   }, [isLoggedIn]);
 
-  return <div> {isLoggedIn ? children : null}</div>;
+  return <React.Fragment>{isLoggedIn ? children : null}</React.Fragment>;
 };
 
 export default ProtectedRoute;

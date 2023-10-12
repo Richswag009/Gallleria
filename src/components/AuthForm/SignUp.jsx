@@ -2,7 +2,7 @@ import { useState } from "react";
 // import { createUserWithEmailAndPassword } from "firebase/auth";
 // import { auth } from "../../firebase";
 import { Link, useNavigate } from "react-router-dom";
-import { useUserAuth } from "../store/useUserAuth";
+import { useUserAuth } from "../../store/useUserAuth";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -23,7 +23,7 @@ const SignUp = () => {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const { signUp } = useUserAuth();
+  const { onSignUp } = useUserAuth();
 
   const {
     register,
@@ -38,9 +38,9 @@ const SignUp = () => {
     setError(null);
     setIsLoading(true);
     try {
-      await signUp(email, password);
+      await onSignUp(email, password);
 
-      navigate("/");
+      navigate("/login");
     } catch (error) {
       setError(error.message);
 
@@ -103,7 +103,7 @@ const SignUp = () => {
 
         <p className="mb-3">
           have an account already??
-          <Link to="/">
+          <Link to="/login">
             <strong>Login</strong>
           </Link>
         </p>
